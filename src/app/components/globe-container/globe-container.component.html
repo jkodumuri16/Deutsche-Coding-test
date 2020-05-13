@@ -1,0 +1,23 @@
+<div class="container-fluid col-md-6  ">
+    <h2 class="text-center p-5">Country Details</h2>
+    <br />
+    <div class="row">
+
+        <div class="col-md-6">
+            <app-location-chooser [config]="regionChooserConfig" [locations]="regions$ | async"
+                (valueChanged)="onRegionSelect($event)">
+            </app-location-chooser>
+        </div>
+
+        <div class="col-md-6">
+            <app-location-chooser [config]="regionChooserConfig" [locations]="countries$ | async"
+            (valueChanged)="onCountrySelect($event)">
+            </app-location-chooser>
+        </div>
+    </div>
+    <div class="row">
+        <app-country-detail [country]="country$ | async">
+
+        </app-country-detail>
+    </div>
+</div>
