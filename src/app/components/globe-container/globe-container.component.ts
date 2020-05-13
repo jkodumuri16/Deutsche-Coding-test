@@ -13,15 +13,15 @@ import { GetCountries } from 'src/app/store/globe-state/globe.actions';
   templateUrl: './globe-container.component.html',
   styleUrls: ['./globe-container.component.scss']
 })
-export class GlobeContainerComponent implements OnInit {
+export class GlobeContainerComponent {
 
   @Select(GlobeState.regions) public regions$: Observable<Region[]>;
   @Select(GlobeState.countries) public countries$: Observable<Country[]>;
   @Select(GlobeState.country) public country$: Observable<Country>;
 
-
   regionChooserConfig: LocationChooserConfig = new LocationChooserConfig();
   countryChooserConfig: LocationChooserConfig = new LocationChooserConfig();
+  
   constructor(private store: Store) {
 
     this.regionChooserConfig.label = 'Region';
@@ -31,18 +31,10 @@ export class GlobeContainerComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    // this.regions$.subscribe(data => {
-    //   console.log(data)
-    // });
-  }
-
   onRegionSelect(event: Region) {
-    console.log(event);
     this.store.dispatch(new GetCountries(event.id));
   }
   onCountrySelect(event: Country) {
-    console.log('on cou',event);
     this.store.dispatch(new SetCountry(event));
   }
 

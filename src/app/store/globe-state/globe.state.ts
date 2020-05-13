@@ -44,7 +44,6 @@ export class GlobeState {
 
     @Action(SetCountries)
     setCountries(ctx: StateContext<GlobeStateModel>, action: SetCountries) {
-        console.log('in set', action)
         const state = ctx.getState();
         ctx.setState({
             ...state,
@@ -54,9 +53,7 @@ export class GlobeState {
 
     @Action(SetCountry)
     setCountry(ctx: StateContext<GlobeStateModel>, action: SetCountry) {
-        console.log('in setc', action)
         const state = ctx.getState();
-        // const country = state.Countries.find(x => x.id === action.country);
         ctx.setState({
             ...state,
             Country:  action.country
@@ -71,11 +68,3 @@ export class GlobeState {
             );
     }
 }
-
-/*
-
-get countries - effects
-loadcountries - reducer
-
-
-*/

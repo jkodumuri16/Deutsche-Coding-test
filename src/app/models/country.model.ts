@@ -4,6 +4,6 @@ export class Country {
     capital: string;
     population: number;
     currencies: any[];
-    currencyCodes: string[];
+    currencyCodes: string;
     flag: string;
 }

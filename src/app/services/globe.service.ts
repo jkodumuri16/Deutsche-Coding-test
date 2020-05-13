@@ -25,7 +25,7 @@ export class GlobeService {
   transformCountry(countries: Country[]): Country[] {
     return countries.map(country => {
       country.id = country.name;
-      country.currencyCodes = country.currencies.reduce((a, b) => `${a.Code},${b.Code}`, '');
+      country.currencyCodes = country.currencies.map(x => x.code).join(', ');
       return country;
     })
   }
