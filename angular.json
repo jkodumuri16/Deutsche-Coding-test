@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "ng-countries"
+  "defaultProject": "ng-countries",
+  "cli": {
+    "analytics": false
+  }
 }

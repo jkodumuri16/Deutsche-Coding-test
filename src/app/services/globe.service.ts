@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Country } from '../models/country.model';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,23 @@ export class GlobeService {
   ENDPOINTS = {
     COUNTRIES: "https://restcountries.eu/rest/v2/region/"
   }
+  CountriesCache: any = {};
   constructor(private http: HttpClient) { }
 
   getCountries(regionId: string): Observable<Country[]> {
-    return this.http.get<Country[]>(`${this.ENDPOINTS.COUNTRIES}${regionId}`)
-      .pipe(
-        map(this.transformCountry),
-        catchError(this.handleError));
+    const cache = this.CountriesCache[`${this.ENDPOINTS.COUNTRIES}${regionId}`];
+    if (cache) {
+      return of(cache);
+    }
+    else {
+      return this.http.get<Country[]>(`${this.ENDPOINTS.COUNTRIES}${regionId}`, {})
+        .pipe(
+          map(this.transformCountry),
+          tap(x => this.CountriesCache[`${this.ENDPOINTS.COUNTRIES}${regionId}`] = x),
+          catchError(this.handleError));
+    }
+
+
 
   }
 
