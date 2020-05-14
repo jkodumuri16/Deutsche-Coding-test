@@ -1,12 +1,11 @@
-import { SetCountry } from './../../store/globe-state/globe.actions';
-import { Country } from 'src/app/models/country.model';
-import { Component, OnInit } from '@angular/core';
-import { GlobeState } from 'src/app/store/globe-state/globe.state';
-import { Store, Select } from '@ngxs/store';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Region } from 'src/app/models/region.model';
+import { Country } from 'src/app/models/country.model';
 import { LocationChooserConfig } from 'src/app/models/location-chooser-config.model';
-import { GetCountries } from 'src/app/store/globe-state/globe.actions';
+import { Region } from 'src/app/models/region.model';
+import { GetCountries, SetCountry } from 'src/app/store/globe-state-ngrx/globe.actions';
+import { selectCountries, selectCountry, selectRegions } from './../../store/globe-state-ngrx/globe.selectors';
 
 @Component({
   selector: 'app-globe-container',
@@ -15,14 +14,17 @@ import { GetCountries } from 'src/app/store/globe-state/globe.actions';
 })
 export class GlobeContainerComponent {
 
-  @Select(GlobeState.regions) public regions$: Observable<Region[]>;
-  @Select(GlobeState.countries) public countries$: Observable<Country[]>;
-  @Select(GlobeState.country) public country$: Observable<Country>;
+  public regions$: Observable<Region[]>;
+  public countries$: Observable<Country[]>;
+  public country$: Observable<Country>;
 
   regionChooserConfig: LocationChooserConfig = new LocationChooserConfig();
   countryChooserConfig: LocationChooserConfig = new LocationChooserConfig();
-  
+
   constructor(private store: Store) {
+    this.regions$ = this.store.select(selectRegions);
+    this.countries$ = this.store.select(selectCountries);
+    this.country$ = this.store.select(selectCountry);
 
     this.regionChooserConfig.label = 'Region';
     this.regionChooserConfig.placeHolder = 'Select a Region';

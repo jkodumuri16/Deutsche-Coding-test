@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Country } from '../models/country.model';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root'
