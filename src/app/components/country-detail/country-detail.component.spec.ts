@@ -8,6 +8,7 @@ describe('CountryDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[],
       declarations: [ CountryDetailComponent ]
     })
     .compileComponents();
